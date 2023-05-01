@@ -93,6 +93,8 @@ function presKey(event) {
   const caps = document.getElementById('caps');
   const text = document.querySelector('.text');
 
+  activeCaps(event, status)
+
   if (event.keyCode == 9) {
     text.value += '    ';
     event.preventDefault();
@@ -109,6 +111,10 @@ function presKey(event) {
   } else if (event.keyCode == 13) {
     text.value += '\n';
     return // Enter
+  } else if (event.keyCode == 18) {
+    event.preventDefault();
+    changeLang(lang);
+    return
   } else if (event.location > 0) {
     event.preventDefault();
     return // Ctrl Shift Win
@@ -119,5 +125,48 @@ function presKey(event) {
   } else {
     text.value += event.key;
     return
+  }
+}
+
+function strUp(state, lang) {
+  let str = lang + state;
+  getBtnKey(str);
+}
+
+let status = 0;
+
+function activeCaps(event, stat) {
+  if (status > 0) {
+    if ((event.getModifierState && event.getModifierState('CapsLock')) == false) {
+      status = 0;
+      strUp('', lang);
+    }
+    if ((event.getModifierState && event.getModifierState('Shift')) == true) {
+      strUp('', lang);
+    }
+  } else {
+    if ((event.getModifierState && event.getModifierState('CapsLock')) == true) {
+      status = 1;
+      strUp('Up', lang);
+      caps.classList.add('keyActive');
+    }
+    if ((event.getModifierState && event.getModifierState('Shift')) == true) {
+      strUp('Up', lang);
+    }
+  }
+}
+document.addEventListener('keyup', e => {
+  if (e.keyCode == 16) {
+    strUp('', lang);
+  }
+});
+
+function changeLang(str) {
+  if (str == 'eng') {
+    lang = 'rus';
+    getBtnKey(lang);
+  } else {
+    lang = 'eng';
+    getBtnKey(lang);
   }
 }
