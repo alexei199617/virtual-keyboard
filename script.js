@@ -170,3 +170,14 @@ function changeLang(str) {
     getBtnKey(lang);
   }
 }
+
+document.addEventListener('click', mouseClick);
+
+function mouseClick(event) {
+  let str = event.target.innerText;
+  if (str.length > 0 && str.length < 2) {
+    document.querySelector('.text').value += str;
+  } else if (str.length > 1 && str.length < 10) {
+    console.log('mod btn');
+  }
+}
