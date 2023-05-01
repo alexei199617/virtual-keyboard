@@ -51,7 +51,7 @@ someText.innerHTML = 'Developed for Windows <br> Press "Alt" to change language'
 
 
 function getBtnKey(lang) {
-
+  removeKeyboar();
   let arr;
   if (lang == 'eng') {
     arr = keyArr.eng;
@@ -82,3 +82,42 @@ function getBtnKey(lang) {
 }
 
 getBtnKey(lang);
+
+function removeKeyboar() {
+  document.querySelector('.keyBox').innerHTML = '';
+}
+
+document.addEventListener('keydown', presKey);
+
+function presKey(event) {
+  const caps = document.getElementById('caps');
+  const text = document.querySelector('.text');
+
+  if (event.keyCode == 9) {
+    text.value += '    ';
+    event.preventDefault();
+    return // Tab
+  } else if (event.target.classList == 'text') {
+    return
+  } else if (event.keyCode > 111 & event.keyCode < 124) {
+    return // F1-F12
+  } else if (event.keyCode == 20) {
+    return // Caps Lock
+  } else if (event.keyCode == 8) {
+    text.value = text.value.substr(0, (text.value.length - 1));
+    return // Backspace
+  } else if (event.keyCode == 13) {
+    text.value += '\n';
+    return // Enter
+  } else if (event.location > 0) {
+    event.preventDefault();
+    return // Ctrl Shift Win
+  } else if (event.keyCode == 93) {
+    return // Option
+  } else if (event.keyCode > 36 & event.keyCode < 41) {
+    text.value += (arrow[event.keyCode - 37]);
+  } else {
+    text.value += event.key;
+    return
+  }
+}
