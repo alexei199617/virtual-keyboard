@@ -48,3 +48,37 @@ box.appendChild(keyBox);
 let someText = document.createElement('p');
 box.appendChild(someText);
 someText.innerHTML = 'Developed for Windows <br> Press "Alt" to change language';
+
+
+function getBtnKey(lang) {
+
+  let arr;
+  if (lang == 'eng') {
+    arr = keyArr.eng;
+  } else if (lang == 'engUp') {
+    arr = keyArr.engUp;
+  } else if (lang == 'rus') {
+    arr = keyArr.rus;
+  } else if (lang == 'rusUp') {
+    arr = keyArr.rusUp;
+  }
+  for (let i = 0; i < arr.length; i++) {
+    let btn = document.createElement('div');
+    if (i == 13 || i == 41 || i == 42 || i == 54) {
+      btn.className = 'key keySize2';
+    } else if (i == 29) {
+      btn.className = 'key keySize2';
+      btn.id = 'caps';
+    } else if (i == 55 || i == 63) {
+      btn.className = 'key keySizeCtrl';
+    } else if (i == 58) {
+      btn.className = 'key keySize6';
+    } else {
+      btn.className = 'key';
+    }
+    btn.innerHTML = arr[i];
+    keyBox.appendChild(btn);
+  }
+}
+
+getBtnKey(lang);
