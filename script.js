@@ -185,11 +185,33 @@ function changeLang(str) {
 
 document.addEventListener('click', mouseClick);
 
+let mouseShiftState = 0;
 function mouseClick(event) {
+  const text = document.querySelector('.text');
   let str = event.target.innerText;
   if (str.length > 0 && str.length < 2) {
     document.querySelector('.text').value += str;
   } else if (str.length > 1 && str.length < 10) {
-    console.log('mod btn');
+    if (str == 'Alt') {
+      changeLang(lang);
+    } else if (str == 'Backspace' || str == 'Del') {
+      text.value = text.value.substr(0, (text.value.length - 1));
+    } else if (str == 'Enter') {
+      text.value += '\n';
+    } else if (str == 'Space') {
+      text.value += ' ';
+    } else if (str == 'Tab') {
+      text.value += '    ';
+    } else if (str == 'Shift' || str == 'Caps Lock') {
+      if (mouseShiftState == 0) {
+        strUp('Up', lang);
+        mouseShiftState = 1;
+      } else {
+        strUp('', lang);
+        mouseShiftState = 0;
+      }
+    } else {
+      console.log('nomod btn');
+    }
   }
 }
