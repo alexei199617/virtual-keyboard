@@ -161,12 +161,24 @@ document.addEventListener('keyup', e => {
   }
 });
 
+function getLocalStorage () {
+  if (localStorage.getItem('lang')) {
+      lang = localStorage.getItem('lang');
+      getBtnKey(lang);
+  } else {
+    localStorage.setItem('lang', lang);
+  }
+}
+getLocalStorage ()
+
 function changeLang(str) {
   if (str == 'eng') {
     lang = 'rus';
+    localStorage.setItem('lang', lang);
     getBtnKey(lang);
   } else {
     lang = 'eng';
+    localStorage.setItem('lang', lang);
     getBtnKey(lang);
   }
 }
